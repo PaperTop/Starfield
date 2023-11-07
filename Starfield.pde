@@ -5,25 +5,24 @@ boolean light = false;
 lighter device = new lighter(245, 320);
 Particle[] explosion = new Particle[390];
 Rocket[] boom = new Rocket[10];
-Spark dot = new Spark(300,250,650);
+Spark dot = new Spark(300, 250, 650);
 
-
-//your code here
 void setup()
 {
   size(600, 800);
-  for(int i = 0; i < 390; i++){
-    explosion[i] = new Particle(2000,2000);
+  for (int i = 0; i < 390; i++) {
+    explosion[i] = new Particle(2000, 2000);
   }
-  for(int i = 0; i < 10; i++){
-    boom[i] = new Rocket(2000,2000);
+  for (int i = 0; i < 10; i++) {
+    boom[i] = new Rocket(2000, 2000);
   }
 }
 
 void draw()
 {
   background(135, 206, 235);
-  button(400, 100, "Lighter");
+  pergoda();
+  button(225, 20, "Lighter");
   device.show();
   device.move();
   //System.out.println(mouseX + " " + mouseY);
@@ -32,32 +31,32 @@ void draw()
   dot.show();
   stroke(0);
   strokeWeight(0);
-  if(checker()){
-    for(int i = 0; i < 390; i++){
-      explosion[i] = new Particle(300,dot.myY);
+  if (checker()) {
+    for (int i = 0; i < 390; i++) {
+      explosion[i] = new Particle(300, dot.myY);
     }
-    for(int i = 0; i < 10; i++){
-      boom[i] = new Rocket(300,dot.myY);
+    for (int i = 0; i < 10; i++) {
+      boom[i] = new Rocket(300, dot.myY);
     }
   }
-  for(int i = 0; i < 390; i++){
+  for (int i = 0; i < 390; i++) {
     explosion[i].show();
     explosion[i].move();
   }
-  for(int i = 0; i < 10; i++){
+  for (int i = 0; i < 10; i++) {
     boom[i].move();
     boom[i].rshow();
   }
   for (int i = 250; i < 650; i+=100) {
-    if(dot.myY >= i && dot.myY <= i + 50){
+    if (dot.myY >= i && dot.myY <= i + 50) {
       fill(255);
       strokeWeight(4);
       line(300, i, 300, dot.myY);
     }
-    if(dot.myY >= i + 50 && dot.myY < i + 51){
+    if (dot.myY >= i + 50 && dot.myY < i + 51) {
       lineY += 100;
     }
-    if(dot.myY >= i + 75 && dot.myY < i + 76){
+    if (dot.myY >= i + 75 && dot.myY < i + 76) {
       firecrackerY += 100;
     }
   }
@@ -77,14 +76,13 @@ class lighter
   void move() {
     if (bc) {
       myX -= mySpeed;
-        if (myX == 600 && mySpeed < 0){
-          mySpeed = 0;
-        }
+      if (myX == 600 && mySpeed < 0) {
+        mySpeed = 0;
+      }
     }
     if (myX <= end) {
       mySpeed = 0;
     }
-
   }
   void show() {
     fill(0);
@@ -129,7 +127,7 @@ void button(int myX, int myY, String text) {
   } else {
     fill(240, 0, 0);
   }
-  if (!bc){
+  if (!bc) {
     textAlign(CENTER);
     textSize(20);
     rect(myX, myY, 150, 50, 10);
@@ -138,17 +136,42 @@ void button(int myX, int myY, String text) {
   }
 }
 
-boolean checker(){
-  for(int i = 325; i < 700; i+=100) {
-    if (dot.myY == i){
+boolean checker() {
+  for (int i = 325; i < 700; i+=100) {
+    if (dot.myY == i) {
       return true;
     }
   }
   return false;
 }
-void background(){
-  
+void scale(int x, int y) {
+  fill(0, 255, 0);
+  beginShape();
+  curveVertex(x, y);
+  curveVertex(x, y);
+  curveVertex(x, y + 10);
+  curveVertex(x + 10, y + 15);
+  curveVertex(x + 20, y);
+  curveVertex(x + 20, y);
+  endShape();
 }
+void pergoda() {
+  fill(150, 75, 0);
+  rect(100, 200, 30, 500);
+  rect(470, 200, 30, 500);
+  beginShape();
+  vertex(600, 200);
+  vertex(0, 200);
+  vertex(100, 100);
+  vertex(500, 100);
+  endShape();
+  for (int i = 200, j = 0; i >= 100; i -= 10, j += 10) {
+    for (int k = 0 + j; k < 600 - j; k += 15) {
+      scale(k, i);
+    }
+  }
+}
+
 class Firecracker
 {
   int myX, myFY, myLY, myWidth;
@@ -163,9 +186,9 @@ class Firecracker
     fill(255, 0, 0);
     strokeWeight(0);
     for (int i = myFY; i < 700; i+=100) {
-      for(int j = i; j < i + 50; j+=10)
+      for (int j = i; j < i + 50; j+=10)
       {
-        rect(myX, j, myWidth, 10, 100);        
+        rect(myX, j, myWidth, 10, 100);
       }
     }
     stroke(#875638);
@@ -181,7 +204,7 @@ class Particle
 {
 
   double myX, myY, xSpeed, ySpeed, angle, acceleration, speed;
-  Particle(int x, int y){
+  Particle(int x, int y) {
     myX = x;
     myY = y;
     speed = Math.random() * 10;
@@ -190,13 +213,13 @@ class Particle
     ySpeed = -(Math.sin(angle) * speed);
     acceleration = Math.random()/2 + 0.3;
   }
-  void move(){
+  void move() {
     myX += xSpeed;
     myY += ySpeed;
     ySpeed += acceleration;
   }
-  void show(){
-    fill(255,0,0);
+  void show() {
+    fill(255, 0, 0);
     ellipse((float)myX, (float)myY, 7, 7);
   }
 }
@@ -204,9 +227,9 @@ class Particle
 class Rocket extends Particle
 {
   int myWidth, myLength;
-  
-  Rocket(int x, int y){
-    super(x,y);
+
+  Rocket(int x, int y) {
+    super(x, y);
     myWidth = 5;
     myLength = 20;
     myX = x;
@@ -217,12 +240,12 @@ class Rocket extends Particle
     ySpeed = -(Math.sin(angle) * speed);
     acceleration = 0;
   }
-  
-  void rshow(){
-    fill(0,0,0);
+
+  void rshow() {
+    fill(0, 0, 0);
     rect((float)(myX-myWidth), (float)myY, (float)(myWidth * 2), (float)myLength);
-    fill(255,0,0);
-    triangle((float)(myX - myWidth - 3) ,(float)myY, (float)myX, (float)(myY - 10), (float)(myX + myWidth + 3), (float)myY);
+    fill(255, 0, 0);
+    triangle((float)(myX - myWidth - 3), (float)myY, (float)myX, (float)(myY - 10), (float)(myX + myWidth + 3), (float)myY);
   }
 }
 
@@ -237,10 +260,10 @@ class Spark
     myY = y; //250
     end = y1; //700
   }
-  
+
   void show()
   {
-    if(light){
+    if (light) {
       fill(255, 165, 0);
       beginShape();
       curveVertex(myX, myY);
@@ -251,14 +274,15 @@ class Spark
       curveVertex(myX, myY);
       curveVertex(myX, myY);
       endShape();
-      
+
       myY += mySpeed;
     }
-    if(myY > end)
+    if (myY > end)
     {
       light = false;
       mySpeed = 0;
     }
   }
 }
+
 

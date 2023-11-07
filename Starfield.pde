@@ -1,5 +1,5 @@
 //Jacky
-int numPart = 2000;
+int numPart = 1000;
 int firecrackerY = 300;
 int lineY = 250;
 boolean bc = false;
@@ -229,7 +229,7 @@ class Particle
   }
   void show() {
     fill(255, 0, 0);
-    stroke(0);
+    strokeWeight(0);
     ellipse((float)myX, (float)myY, 7, 7);
   }
 }

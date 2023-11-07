@@ -22,7 +22,7 @@ void draw()
 {
   background(135, 206, 235);
   pergoda();
-  button(225, 20, "Lighter");
+  button(225, 20);
   device.show();
   device.move();
   //System.out.println(mouseX + " " + mouseY);
@@ -117,7 +117,7 @@ class lighter
 }
 
 
-void button(int myX, int myY, String text) {
+void button(int myX, int myY) {
   //Jaden
   if (mouseX > myX && mouseX < myX + 150 && mouseY > myY && mouseY < myY + 50 && mousePressed == true) {
     fill(255, 0, 0);
@@ -132,7 +132,7 @@ void button(int myX, int myY, String text) {
     textSize(20);
     rect(myX, myY, 150, 50, 10);
     fill(0);
-    text(text, myX + 75, myY +30);
+    text("Lighter", myX + 75, myY +30);
   }
 }
 
